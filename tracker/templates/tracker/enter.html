@@ -1,0 +1,14 @@
+{% extends 'tracker/base.html' %}
+
+{% block title %}Entry{% endblock %}
+
+{% block content %}
+<h1>Enter Weight</h1>
+<section>
+	<form method=POST>
+		{% csrf_token %}
+		<input name='entry_weight' type=text placeholder='Enter Weight'>
+		<button type='submit'>Enter</button>
+	</form>
+</section>
+{% endblock %}

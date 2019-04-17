@@ -1,0 +1,15 @@
+{% extends 'tracker/base.html' %}
+
+{% block title %}History{% endblock %}
+
+{% block content %}
+<h1>Weight History</h1>
+<section>
+	<table id='weight_table'>
+		{% for entry in entries %}
+		<tr><td>{{ entry.datetime }}</td><td>{{ entry.weight }}</td></tr>
+		{% endfor %}
+	</table>
+	<a href='/entry'>Enter another weight</a>
+</section>
+{% endblock %}
