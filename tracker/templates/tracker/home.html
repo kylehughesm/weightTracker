@@ -4,6 +4,10 @@
 
 {% block content %}
 <h1>Homepage</h1>
+<h4>Welcome</h4>
+{% if user %}
+<p>{{ user.username }}</p>
+{% endif %}
 <a href= 'register'>Create Account</a>
 <a href= 'login'>Login</a>
 <a href= 'entry'>Enter Weight</a>

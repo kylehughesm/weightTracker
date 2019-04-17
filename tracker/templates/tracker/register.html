@@ -1,7 +1,12 @@
 {% extends 'tracker/base.html' %}
 
-{% block title %}Homepage{% endblock %}
+{% block title %}Register{% endblock %}
 
 {% block content %}
-
+<h1>Register</h1>
+<form method='POST'>
+	{{ form }}
+	{{ crsf_token }}
+	<button type='submit'>Sumbit</button>
+</form>
 {% endblock %}

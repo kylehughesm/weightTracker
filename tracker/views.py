@@ -1,13 +1,26 @@
 from django.shortcuts import render, redirect
 from tracker.models import Entry
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate, login
 
 
 def home(request):
-    return render(request, 'tracker/home.html')
+    if request.user.is_authenticated:
+        user = request.user
+    else:
+        user = None
+    return render(request, 'tracker/home.html', {'user': user})
 
 
 def register(request):
-    return render(request, 'tracker/register.html')
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('')
+    return render(request, 'tracker/register.html', {'form': UserCreationForm})
 
 
 def login_user(request):
