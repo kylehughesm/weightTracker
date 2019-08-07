@@ -1,12 +1,12 @@
 from . import views
-from django.urls import path
+from django.urls import path, include
 
 
 urlpatterns = [
     path('', views.home, name='home'),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/profile/', views.profile, name='profile'),
     path('register/', views.register, name='register'),
-    path('login/', views.login_user, name='login'),
-    path('<username>/', views.user_account, name='user_account'),
     path('entry/', views.enter_weight, name='entry'),
     path('history/', views.history, name='history')
 ]

@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from tracker.models import Entry
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, models
+from django.contrib import messages
 
 
 def home(request):
@@ -14,29 +15,25 @@ def home(request):
 
 def register(request):
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            username = form.cleaned_data.get('username')
             login(request, user)
-            return redirect('')
-    return render(request, 'tracker/register.html', {'form': UserCreationForm})
+            messages.success(request, 'Account created successfully')
+            return redirect('/')
+        else:
+            return render(request, 'tracker/register.html', {'form': form})
+    form = UserCreationForm()
+    return render(request, 'tracker/register.html', {'form': form})
 
 
 def login_user(request):
-    return redirect('/user_account')
+    return redirect('/accounts')
 
 
-def logout_user(request):
-    return redirect('/')
-
-
-def login_page(request):
-    return render(request, 'tracker/login.html')
-
-
-def user_account(request):
-    return render(request, 'tracker/account.html')
+def profile(request):
+    return render(request, 'tracker/profile.html')
 
 
 def enter_weight(request):
